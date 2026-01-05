@@ -1,0 +1,1326 @@
+/* Inizio a scrivere il file CSS, come prima cosa resetto/rimuovo gli stili di default dei browser userò la transizione ease (lento-veloce-lento) per animare i link cerco anche di utilizzare "child" */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Uso le variabili CSS, ci permettono così di definire i colori una volta e riutilizzarli anche perché voglio aggiungere la funzione "tema scuro"*/
+
+:root {
+  --colore-sfondo: #f8fafc;
+  --colore-sfondo-secondario: #f1f5f9;
+  --colore-sfondo-button-cambiotema: #f1f5f9;
+
+  --colore-testo: #1e293b;
+  --colore-testo-secondario: #64748b;
+
+  --colore-primario: #3b82f6;
+  --colore-accento: #10b981;
+
+  --colore-bordo: #e2e8f0;
+  --colore-button-cambiotemahover: #e2e8f0;
+  --colore-bianco: #ffffff;
+}
+
+[data-theme="scuro"] {
+  --colore-sfondo: #0f172a;
+  --colore-sfondo-secondario: #1e293b;
+  --colore-sfondo-button-cambiotema: #334155;
+
+  --colore-testo: #e2e8f0;
+  --colore-testo-secondario: #94a3b8;
+
+  --colore-primario: #60a5fa;
+  --colore-accento: #34d399;
+
+  --colore-bordo: #334155;
+  --colore-button-cambiotemahover: #475569;
+  --colore-bianco: #1e293b;
+}
+
+/* qua creo uno stile generale per il body aggiungo min-height e display flex in modo che footer non "sale" su */
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--colore-sfondo);
+  color: var(--colore-testo);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* faccio in modo che il main prende tutto lo spazio diposnibile sempre per non fare salire il footer */
+main {
+  flex: 1;
+}
+
+/* creo uno stile generale per ogni link e rimuovo la sottolineatura */
+a {
+  color: var(--colore-primario);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--colore-accento);
+}
+
+/* contenitore header e menu personalizzo con Flexbox */
+
+header {
+  background-color: var(--colore-bianco);
+  border-bottom: 1px solid var(--colore-bordo);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+#menubar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 50px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+#logo {
+  width: 45px;
+  height: 45px;
+  background: linear-gradient(135deg, var(--colore-primario), var(--colore-accento));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--colore-bianco);
+}
+
+#logo:hover {
+  color: var(--colore-accento);
+}
+
+#menu-links {
+  display: flex;
+  list-style: none;
+  gap: 30px;
+}
+
+#menu-links a {
+  color: var(--colore-testo);
+  font-weight: 500;
+  padding: 5px 0;
+  border-bottom: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+#menu-links a:hover,
+#menu-links a.attivo,
+#menu-links a.attivocv {
+  color: var(--colore-primario);
+  border-bottom: 2px solid var(--colore-primario);
+}
+
+#menu-links .separatore {
+  width: 2px;
+  height: 20px;
+  background-color: var(--colore-bordo);
+  margin: 0 20px;
+  align-self: center;
+}
+
+#button-container {
+  display: flex;
+  gap: 10px;
+}
+
+#button-tema {
+  background-color: var(--colore-sfondo-button-cambiotema);
+  border: none;
+  padding: 8px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 0.3s ease;
+}
+
+#button-tema:hover {
+  background-color: var(--colore-button-cambiotemahover);
+}
+
+/* personalizzo il menu visibile sui dispositivi che hanno il display ridotto (nascoso su desktop) */
+#hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+#hamburger span {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background-color: var(--colore-testo);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+#hamburger.aperto span:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+
+#hamburger.aperto span:nth-child(2) {
+  opacity: 0;
+}
+
+#hamburger.aperto span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* sezione presentazione uso flexbox */
+#presentazione {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+}
+
+#foto-profilo {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--colore-primario);
+  margin-bottom: 25px;
+}
+
+#presentazione h1 {
+  font-size: 42px;
+  color: var(--colore-testo);
+  margin-bottom: 10px;
+}
+
+#presentazione h2 {
+  font-size: 20px;
+  color: var(--colore-primario);
+  font-weight: 500;
+  margin-bottom: 15px;
+}
+
+#motto {
+  font-size: 18px;
+  color: var(--colore-testo-secondario);
+  font-style: italic;
+  margin-bottom: 30px;
+  max-width: 600px;
+}
+
+#cvandcontact-container {
+  display: flex;
+  gap: 15px;
+}
+
+.pulsante {
+  padding: 12px 30px;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.pulsante-primario {
+  background-color: var(--colore-primario);
+  color: var(--colore-bianco);
+}
+
+.pulsante-primario:hover {
+  background-color: var(--colore-accento);
+  color: var(--colore-bianco);
+}
+
+.pulsante-secondario {
+  background-color: transparent;
+  color: var(--colore-primario);
+  border: 2px solid var(--colore-primario);
+}
+
+.pulsante-secondario:hover {
+  background-color: var(--colore-primario);
+  color: var(--colore-bianco);
+}
+
+/* procedero con lo stile del footer e del copyright e dei crediti */
+footer {
+  background-color: var(--colore-bianco);
+  border-top: 1px solid var(--colore-bordo);
+  padding: 25px 20px;
+  text-align: center;
+}
+
+#copyright {
+  font-size: 14px;
+  color: var(--colore-testo);
+  margin-bottom: 5px;
+}
+
+#crediti {
+  font-size: 13px;
+  color: var(--colore-testo-secondario);
+}
+
+.errore-campo {
+  display: none;
+  color: #d32f2f;
+  font-size: 0.85rem;
+  margin-top: 4px;
+  line-height: 1.3;
+}
+
+.form-gruppo.errore .errore-campo {
+  display: block;
+}
+
+#button-nuovo-invio {
+  margin-top: 10px;
+  padding: 12px 25px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--colore-primario);
+  background-color: transparent;
+  border: 2px solid var(--colore-primario);
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* CSS per la sezione ABOUT */
+#chi-sono {
+  padding: 100px 50px 50px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+#chi-sono h1 {
+  font-size: 36px;
+  color: var(--colore-primario);
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+#about-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+#about-testo {
+  background-color: var(--colore-sfondo-secondario);
+  padding: 30px;
+  border-radius: 10px;
+  border-left: 4px solid var(--colore-primario);
+  align-self: center;
+}
+
+#about-testo h2 {
+  font-size: 24px;
+  color: var(--colore-testo);
+  margin-bottom: 20px;
+}
+
+#about-testo p {
+  font-size: 16px;
+  color: var(--colore-testo-secondario);
+  margin-bottom: 15px;
+  line-height: 1.8;
+}
+
+#about-testo p:last-child {
+  margin-bottom: 0;
+}
+
+#about-info {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.info-card {
+  background-color: var(--colore-sfondo-secondario);
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  transition: transform 0.3s ease;
+}
+
+.info-card:hover {
+  transform: translateX(5px);
+}
+
+.info-icona {
+  font-size: 28px;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, var(--colore-primario), var(--colore-accento));
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.info-contenuto {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-etichetta {
+  font-size: 12px;
+  color: var(--colore-testo-secondario);
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+
+.info-valore {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--colore-testo);
+}
+
+.info-card a.info-valore {
+  color: var(--colore-primario);
+}
+
+.info-card a.info-valore:hover {
+  color: var(--colore-accento);
+}
+
+/* CSS per la sezione RESUME */
+#resume {
+  padding: 100px 50px 50px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+#resume h1 {
+  font-size: 36px;
+  color: var(--colore-primario);
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+#resume-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.resume-card {
+  background-color: var(--colore-sfondo-secondario);
+  padding: 25px;
+  border-radius: 10px;
+}
+
+.card-piena {
+  grid-column: 1 / -1;
+}
+
+.resume-card h2 {
+  font-size: 20px;
+  color: var(--colore-primario);
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--colore-bordo);
+}
+
+.timeline {
+  position: relative;
+  padding-left: 25px;
+  margin-left: 6px;
+  border-left: 2px solid var(--colore-primario);
+}
+
+.timeline-elemento {
+  position: relative;
+  margin-bottom: 25px;
+}
+
+.timeline-elemento:last-child {
+  margin-bottom: 0;
+}
+
+.timeline-elemento::before {
+  content: "";
+  position: absolute;
+  left: -32px;
+  top: 5px;
+  width: 12px;
+  height: 12px;
+  background-color: var(--colore-primario);
+  border-radius: 50%;
+}
+
+.timeline-elemento h3 {
+  font-size: 16px;
+  color: var(--colore-testo);
+  margin-bottom: 5px;
+}
+
+.timeline-data {
+  font-size: 13px;
+  color: var(--colore-accento);
+  font-weight: 600;
+}
+
+.timeline-elemento p {
+  font-size: 14px;
+  color: var(--colore-testo-secondario);
+  margin-top: 5px;
+}
+
+#tabella-skills {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#tabella-skills th,
+#tabella-skills td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid var(--colore-bordo);
+}
+
+#tabella-skills th {
+  background-color: var(--colore-sfondo);
+  color: var(--colore-primario);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+#tabella-skills td {
+  font-size: 14px;
+  color: var(--colore-testo);
+}
+
+.barra-skill {
+  width: 100%;
+  height: 10px;
+  background-color: var(--colore-bordo);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.barra-livello {
+  height: 100%;
+  background: linear-gradient(90deg, var(--colore-primario), var(--colore-accento));
+  border-radius: 5px;
+}
+
+#lista-interessi {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+#lista-interessi li {
+  background-color: var(--colore-sfondo);
+  padding: 12px 20px;
+  border-radius: 25px;
+  font-size: 14px;
+  color: var(--colore-testo);
+  border: 1px solid var(--colore-bordo);
+  transition: all 0.3s ease;
+}
+
+#lista-interessi li:hover {
+  background-color: var(--colore-primario);
+  color: var(--colore-bianco);
+  border-color: var(--colore-primario);
+}
+
+/* CSS per la sezione CV */
+
+#cv {
+  padding: 100px 50px 50px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+#bottone-stampa {
+  display: block;
+  margin: 0 auto 30px;
+  padding: 12px 25px;
+  background-color: var(--colore-accento);
+  color: var(--colore-bianco);
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#bottone-stampa:hover {
+  background-color: var(--colore-primario);
+}
+
+#cv-documento {
+  background-color: var(--colore-bianco);
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+}
+
+#cv-intestazione {
+  text-align: center;
+  padding-bottom: 25px;
+  border-bottom: 2px solid var(--colore-bordo);
+  margin-bottom: 25px;
+}
+
+#cv-intestazione h1 {
+  font-size: 32px;
+  color: var(--colore-testo);
+  margin-bottom: 10px;
+}
+
+#cv-motto {
+  font-size: 16px;
+  color: var(--colore-primario);
+  font-style: italic;
+  margin-bottom: 10px;
+}
+
+#cv-nazione {
+  font-size: 14px;
+  color: var(--colore-testo-secondario);
+}
+
+.cv-sezione {
+  margin-bottom: 25px;
+}
+
+.cv-sezione h2 {
+  font-size: 18px;
+  color: var(--colore-primario);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 15px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--colore-bordo);
+}
+
+.cv-sezione p {
+  font-size: 14px;
+  color: var(--colore-testo);
+  line-height: 1.8;
+  margin-bottom: 8px;
+}
+
+.cv-sezione p:last-child {
+  margin-bottom: 0;
+}
+
+.cv-tabella {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.cv-tabella tr {
+  border-bottom: 1px solid var(--colore-bordo);
+}
+
+.cv-tabella tr:last-child {
+  border-bottom: none;
+}
+
+.cv-tabella td {
+  padding: 10px 0;
+  font-size: 14px;
+  color: var(--colore-testo);
+  vertical-align: top;
+}
+
+.cv-data {
+  width: 130px;
+  color: var(--colore-testo-secondario);
+  font-weight: 500;
+}
+
+/* CSS per la sezione Contatti */
+#contatti {
+  padding: 100px 50px 50px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+#contatti h1 {
+  font-size: 36px;
+  color: var(--colore-primario);
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+#contatti-container {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 40px;
+  align-items: start;
+}
+
+#contatti-info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.contatto-card {
+  background-color: var(--colore-sfondo-secondario);
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  transition: transform 0.3s ease;
+}
+
+.contatto-card:hover {
+  transform: translateX(5px);
+}
+
+.contatto-icona {
+  font-size: 28px;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, var(--colore-primario), var(--colore-accento));
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contatto-contenuto {
+  display: flex;
+  flex-direction: column;
+}
+
+.contatto-etichetta {
+  font-size: 12px;
+  color: var(--colore-testo-secondario);
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+
+.contatto-valore {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--colore-testo);
+}
+
+.contatto-card a.contatto-valore {
+  color: var(--colore-primario);
+}
+
+.contatto-card a.contatto-valore:hover {
+  color: var(--colore-accento);
+}
+
+#contatti-form {
+  background-color: var(--colore-sfondo-secondario);
+  padding: 30px;
+  border-radius: 10px;
+}
+
+/* questo è un honeypot */
+.website {
+  display: none !important;
+}
+
+.form-riga {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.form-gruppo {
+  margin-bottom: 20px;
+}
+
+.form-gruppo label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--colore-testo);
+  margin-bottom: 8px;
+}
+
+.form-gruppo input,
+.form-gruppo textarea {
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--colore-testo);
+  background-color: var(--colore-sfondo);
+  border: 2px solid var(--colore-bordo);
+  border-radius: 8px;
+  transition: border-color 0.3s ease;
+}
+
+.form-gruppo input:focus,
+.form-gruppo textarea:focus {
+  outline: none;
+  border-color: var(--colore-primario);
+}
+
+.form-gruppo textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+.form-gruppo input:valid,
+.form-gruppo textarea:valid {
+  border-color: var(--colore-accento);
+}
+
+.form-gruppo input:invalid:not(:placeholder-shown),
+.form-gruppo textarea:invalid:not(:placeholder-shown) {
+  border-color: #ef4444;
+}
+
+#button-invia {
+  width: 100%;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--colore-bianco);
+  background-color: var(--colore-primario);
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#button-invia:hover {
+  background-color: var(--colore-accento);
+}
+
+#form-nota {
+  font-size: 12px;
+  color: var(--colore-testo-secondario);
+  text-align: center;
+  margin-top: 15px;
+}
+
+#torna-su {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, var(--colore-primario), var(--colore-accento));
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 999;
+}
+
+#torna-su.visibile {
+  opacity: 1;
+  visibility: visible;
+}
+
+#torna-su:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 20px rgba(59, 130, 246, 0.4);
+}
+
+#torna-su svg {
+  color: var(--colore-bianco);
+}
+
+/* Ora imposto lo stile per addattarsi agli schermi più piccoli e attivare l'hmaburger menu */
+
+/* TABLET */
+@media (max-width: 1024px) {
+  #menubar {
+    padding: 15px 30px;
+  }
+
+  #menu-links {
+    gap: 20px;
+  }
+
+  #presentazione h1 {
+    font-size: 36px;
+  }
+
+  #chi-sono {
+    padding: 100px 30px 50px;
+  }
+
+  #about-container {
+    gap: 30px;
+  }
+
+  #resume {
+    padding: 100px 30px 50px;
+  }
+
+  #resume-container {
+    gap: 20px;
+  }
+
+  #cv {
+    padding: 100px 30px 50px;
+  }
+
+  #cv-documento {
+    padding: 30px;
+  }
+
+  #contatti {
+    padding: 100px 30px 50px;
+  }
+
+  #contatti-container {
+    gap: 30px;
+  }
+}
+
+/* mobile Smartphone max 768px */
+@media (max-width: 768px) {
+  #menubar {
+    padding: 15px 20px;
+  }
+
+  #hamburger {
+    display: flex;
+  }
+
+  #menu-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: var(--colore-bianco);
+    flex-direction: column;
+    align-items: last baseline;
+    padding: 20px;
+    gap: 15px;
+    border-bottom: 1px solid var(--colore-bordo);
+    /* Aggiungo della animazione per l'apertura del menu a hamburger */
+    display: flex;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.5s ease;
+  }
+
+  #menu-links.attivo,
+  #menu-links.attivocv {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  #button-container {
+    position: absolute;
+    right: 70px;
+  }
+
+  #presentazione {
+    padding: 80px 20px 40px;
+  }
+
+  #presentazione h1 {
+    font-size: 28px;
+  }
+
+  #presentazione h2 {
+    font-size: 16px;
+  }
+
+  #motto {
+    font-size: 16px;
+  }
+
+  #foto-profilo {
+    width: 150px;
+    height: 150px;
+  }
+
+  #cvandcontact-container {
+    flex-direction: column;
+    width: 100%;
+    max-width: 250px;
+  }
+
+  .pulsante {
+    width: 100%;
+    text-align: center;
+  }
+
+  #chi-sono {
+    padding: 90px 20px 40px;
+  }
+
+  #chi-sono h1 {
+    font-size: 28px;
+  }
+
+  #about-container {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  #about-testo {
+    padding: 20px;
+  }
+
+  #about-testo h2 {
+    font-size: 20px;
+  }
+
+  #resume {
+    padding: 90px 20px 40px;
+  }
+
+  #resume h1 {
+    font-size: 28px;
+  }
+
+  #resume-container {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .resume-card {
+    padding: 20px;
+  }
+
+  .resume-card h2 {
+    font-size: 18px;
+  }
+
+  #tabella-skills {
+    display: block;
+    overflow-x: auto;
+  }
+
+  #lista-interessi {
+    justify-content: center;
+  }
+
+  #cv {
+    padding: 100px 20px 40px;
+  }
+
+  #cv-documento {
+    padding: 20px;
+  }
+
+  #cv-intestazione h1 {
+    font-size: 24px;
+  }
+
+  #cv-motto {
+    font-size: 14px;
+  }
+
+  #cv-nazione {
+    font-size: 12px;
+  }
+
+  .cv-sezione h2 {
+    font-size: 16px;
+  }
+
+  .cv-tabella td {
+    font-size: 13px;
+  }
+
+  .cv-data {
+    width: 100px;
+  }
+
+  #contatti {
+    padding: 90px 20px 40px;
+  }
+
+  #contatti h1 {
+    font-size: 28px;
+  }
+
+  #contatti-container {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  #contatti-form {
+    padding: 20px;
+  }
+
+  .form-riga {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  #menu-links .separatore {
+    width: 100%;
+    height: 1px;
+    margin: 10px 0;
+  }
+}
+
+/* Small mobile (max 480px) */
+@media (max-width: 480px) {
+  #presentazione h1 {
+    font-size: 24px;
+  }
+
+  #presentazione h2 {
+    font-size: 14px;
+  }
+
+  #motto {
+    font-size: 14px;
+  }
+
+  #foto-profilo {
+    width: 120px;
+    height: 120px;
+  }
+
+  .pulsante {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+
+  #copyright {
+    font-size: 12px;
+  }
+
+  #crediti {
+    font-size: 11px;
+  }
+
+  #chi-sono {
+    padding: 90px 15px 30px;
+  }
+
+  #chi-sono h1 {
+    font-size: 24px;
+    margin-bottom: 25px;
+  }
+
+  #about-testo {
+    padding: 15px;
+  }
+
+  #about-testo h2 {
+    font-size: 18px;
+  }
+
+  #about-testo p {
+    font-size: 14px;
+  }
+
+  .info-card {
+    padding: 15px;
+  }
+
+  .info-icona {
+    width: 40px;
+    height: 40px;
+    font-size: 22px;
+  }
+
+  .info-valore {
+    font-size: 14px;
+  }
+
+  #resume {
+    padding: 90px 15px 30px;
+  }
+
+  #resume h1 {
+    font-size: 24px;
+    margin-bottom: 25px;
+  }
+
+  .resume-card {
+    padding: 15px;
+  }
+
+  .resume-card h2 {
+    font-size: 16px;
+  }
+
+  .timeline-elemento h3 {
+    font-size: 14px;
+  }
+
+  .timeline-data {
+    font-size: 12px;
+  }
+
+  .timeline-elemento p {
+    font-size: 13px;
+  }
+
+  #tabella-skills th,
+  #tabella-skills td {
+    padding: 10px;
+    font-size: 12px;
+  }
+
+  #lista-interessi li {
+    padding: 10px 15px;
+    font-size: 12px;
+  }
+
+  #cv {
+    padding: 100px 15px 30px;
+  }
+
+  #cv-documento {
+    padding: 15px;
+  }
+
+  #cv-intestazione h1 {
+    font-size: 20px;
+  }
+
+  .cv-sezione h2 {
+    font-size: 14px;
+  }
+
+  .cv-sezione p {
+    font-size: 12px;
+  }
+
+  .cv-tabella td {
+    font-size: 12px;
+    display: block;
+    width: 100%;
+  }
+
+  .cv-data {
+    width: 100%;
+    margin-bottom: 5px;
+    color: var(--colore-accento);
+  }
+
+  #contatti {
+    padding: 90px 15px 30px;
+  }
+
+  #contatti h1 {
+    font-size: 24px;
+    margin-bottom: 25px;
+  }
+
+  #contatti-form {
+    padding: 15px;
+  }
+
+  .contatto-card {
+    padding: 15px;
+  }
+
+  .contatto-icona {
+    width: 40px;
+    height: 40px;
+    font-size: 22px;
+  }
+
+  .contatto-valore {
+    font-size: 14px;
+  }
+
+  .form-gruppo label {
+    font-size: 13px;
+  }
+
+  .form-gruppo input,
+  .form-gruppo textarea {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  .button-invia {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  #button-nuovo-invio {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .errore-campo {
+    font-size: 0.9rem;
+    margin-top: 6px;
+  }
+}
+
+/* creo lo stile per la stampa */
+@media print {
+  header,
+  footer,
+  #bottone-stampa {
+    display: none !important;
+  }
+
+  body {
+    background-color: white;
+    color: black;
+  }
+
+  #cv {
+    padding: 0;
+    max-width: 100%;
+  }
+
+  #cv-documento {
+    box-shadow: none;
+    padding: 20px;
+  }
+
+  #cv-intestazione h1,
+  .cv-sezione h2 {
+    color: black;
+  }
+
+  #cv-motto {
+    color: #333;
+  }
+
+  .cv-sezione p,
+  .cv-tabella td {
+    color: black;
+  }
+
+  .cv-data {
+    color: #666;
+  }
+}
